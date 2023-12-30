@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Title -->
+    <title>Delicious-Recipes</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="img/core-img/favicon.ico">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Core Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    
+    <script>
+      let recipes = [
+    { name: 'Spaghetti Bolognese', ingredients: 'Ground beef, onion, garlic, tomato sauce, spaghetti', instructions: '1. Cook spaghetti.\n2. Brown beef with onion and garlic.\n3. Add tomato sauce.\n4. Mix with cooked spaghetti.', imageURL: 'img/bg-img/breadcumb1.jpg', videoURL: 'https://www.youtube.com/watch?v=video1' },
+    { name: 'Chocolate Chip Cookies', ingredients: 'Butter, sugar, eggs, flour, chocolate chips', instructions: '1. Cream butter and sugar.\n2. Add eggs.\n3. Mix in flour and chocolate chips.\n4. Bake at 350°F for 10 minutes.', imageURL: 'img/bg-img/cookies.jpg', videoURL: 'https://www.youtube.com/watch?v=video2' }
+];
+
+function displayRecipes() {
+    const recipeContainer = document.getElementById('recipeContainer');
+    recipeContainer.innerHTML = '';
+
+    recipes.forEach((recipe, index) => {
+        const recipeDiv = document.createElement('div');
+        recipeDiv.className = 'recipe';
+        recipeDiv.innerHTML = `
+        <h3 style="text-align: center;">${recipe.name}</h3>
+            <img class="recipe-image" src="${recipe.imageURL}" alt="${recipe.name} image">
+            <p><strong>Ingredients:</strong><br>${recipe.ingredients.split(',').join('<br>')}</p>
+            <p><strong>Instructions:</strong><br>${formatInstructions(recipe.instructions)}</p>
+            <p><strong>Video:</strong> <a href="${recipe.videoURL}" target="_blank">${recipe.videoURL}</a></p>
+            <button onclick="editRecipe(${index})">Edit</button>
+            <button onclick="deleteRecipe(${index})">Delete</button>
+        `;
+        recipeContainer.appendChild(recipeDiv);
+    });
+}
+
+function formatInstructions(instructions) {
+    return instructions.split('\n').join('<br>');
+}
+
+function previewImage() {
+    const input = document.getElementById('imageUpload');
+    const preview = document.getElementById('previewImage');
+
+    input.addEventListener('change', function () {
+        const file = this.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+
+            reader.addEventListener('load', function () {
+                preview.src = reader.result;
+                preview.style.display = 'block';
+            });
+
+            reader.readAsDataURL(file);
+        }
+    });
+}
+
+function previewVideo() {
+    const input = document.getElementById('videoURL');
+    const preview = document.getElementById('videoPreview');
+
+    input.addEventListener('change', function () {
+        const videoURL = this.value;
+        const youtubeRegex = /^(https?:\/\/)?(www\.)?(youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+
+        if (youtubeRegex.test(videoURL)) {
+            const videoID = videoURL.match(youtubeRegex)[4];
+            preview.innerHTML = `<iframe width="300" height="200" src="https://www.youtube.com/embed/${videoID}" frameborder="0" allowfullscreen></iframe>`;
+            preview.style.display = 'block';
+        } else {
+            preview.style.display = 'none';
+        }
+    });
+}
+
+function saveRecipe() {
+    const recipeForm = document.getElementById('recipeForm');
+    const name = document.getElementById('recipeName').value;
+    const ingredients = document.getElementById('ingredients').value;
+    const instructions = document.getElementById('instructions').value;
+    const imageUpload = document.getElementById('imageUpload').files[0];
+    const videoURL = document.getElementById('videoURL').value;
+
+    if (name && ingredients && instructions) {
+        const newRecipe = { name, ingredients, instructions, videoURL };
+
+        if (imageUpload) {
+            newRecipe.imageURL = URL.createObjectURL(imageUpload);
+        }
+
+        const editIndex = recipeForm.getAttribute('data-edit-index');
+        if (editIndex !== null) {
+            recipes[editIndex] = newRecipe;
+            recipeForm.removeAttribute('data-edit-index');
+        } else {
+            recipes.push(newRecipe);
+        }
+
+        recipeForm.reset();
+
+        document.getElementById('previewImage').style.display = 'none';
+        document.getElementById('videoPreview').style.display = 'none';
+
+        displayRecipes();
+    } else {
+        alert('Please fill in all required fields');
+    }
+}
+
+function editRecipe(index) {
+    const recipe = recipes[index];
+    const recipeForm = document.getElementById('recipeForm');
+
+    document.getElementById('recipeName').value = recipe.name;
+    document.getElementById('ingredients').value = recipe.ingredients;
+    document.getElementById('instructions').value = recipe.instructions;
+    document.getElementById('videoURL').value = recipe.videoURL;
+
+    recipeForm.setAttribute('data-edit-index', index);
+
+    if (recipe.imageURL) {
+        document.getElementById('previewImage').src = recipe.imageURL;
+        document.getElementById('previewImage').style.display = 'block';
+    }
+
+    if (recipe.videoURL) {
+        document.getElementById('videoPreview').innerHTML = `<iframe width="300" height="200" src="https://www.youtube.com/embed/${getVideoId(recipe.videoURL)}" frameborder="0" allowfullscreen></iframe>`;
+        document.getElementById('videoPreview').style.display = 'block';
+    }
+}
+
+function deleteRecipe(index) {
+    recipes.splice(index, 1);
+    displayRecipes();
+}
+
+function getVideoId(url) {
+    const youtubeRegex = /^(https?:\/\/)?(www\.)?(youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+    const match = url.match(youtubeRegex);
+    return match ? match[4] : null;
+}
+
+previewImage();
+previewVideo();
+displayRecipes();
+
+    </script>
+
+
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <i class="circle-preloader"></i>
+        <img src="img/core-img/salad.png" alt="">
+    </div>
+
+    <!-- Search Wrapper -->
+    <div class="search-wrapper">
+        <!-- Close Btn -->
+        <div class="close-btn"><i class="fa fa-times" aria-hidden="true"></i></div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <form action="#" method="post">
+                        <input type="search" name="search" placeholder="Type any keywords...">
+                        <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ##### Header Area Start ##### -->
+    <header class="header-area">
+        <!-- Navbar Area -->
+        <div class="delicious-main-menu">
+            <div class="classy-nav-container breakpoint-off">
+                <div class="container">
+                    <!-- Menu -->
+                    <nav class="classy-navbar justify-content-between" id="deliciousNav">
+                        <!-- Logo -->
+                        <a class="nav-brand" href="home.html"><img src="img/core-img/logoimg.png" alt="" height="300px" width="200px"></a>
+
+                        <!-- Navbar Toggler -->
+                        <div class="classy-navbar-toggler">
+                            <span class="navbarToggler"><span></span><span></span><span></span></span>
+                        </div>
+                        <!-- Menu -->
+                        <div class="classy-menu">
+                            <!-- close btn -->
+                            <div class="classycloseIcon">
+                                <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                            </div>
+                            <!-- Nav Start -->
+                            <div class="classynav">
+                                <ul>
+                                    <li><a href="home.html">Home</a></li>
+                                    <li><a href="about.html">About Us</a></li>
+                                    <li><a href="index.html">Recipes</a></li>
+                                    <li class="active"><a href="recipe_box.html">Recipe Box</a></li>
+                                    <li><a href="blog-post.html">Blogs</a></li>
+                                    <li><a href="contact.html">Contact</a></li>
+                                </ul>
+                                
+                            <!-- Nav End -->
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ##### Header Area End ##### -->
+
+    <div class="breadcumb-area bg-img bg-overlay" style="background-image: url(img/bg-img/bg3.jpg);">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12">
+                    <div class="breadcumb-text text-center">
+                        <h2>Recipe Box</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section id="recipeContainer">
+        <!-- Recipes will be dynamically added here -->
+    </section>
+
+    <form id="recipeForm">
+        <h2>Add/Edit Recipe</h2>
+        <label for="recipeName">Recipe Name:</label>
+        <input type="text" id="recipeName" required>
+
+        <label for="ingredients">Ingredients:</label>
+        <textarea id="ingredients" rows="4" required></textarea>
+
+        <label for="instructions">Instructions:</label>
+        <textarea id="instructions" rows="4" required></textarea>
+
+        <label for="imageUpload">Image Upload:</label>
+        <input type="file" id="imageUpload" accept="image/*">
+        <img class="recipe-image" id="previewImage" src="#" alt="Preview Image"
+            style="width: 300px; height: 200px; object-fit: cover; border-radius: 5px; margin-top: 10px; display: none;">
+
+        <label for="videoURL">Video URL:</label>
+        <input type="url" id="videoURL">
+        <div id="videoPreview" style="max-width: 300px; display: none; margin-top: 10px;"></div>
+
+        <button type="button" class="btn-" onclick="saveRecipe()">Save Recipe</button>
+    </form>
+
+    
+
+    
+         <!-- Footer Start -->
+         
+         <img src="img/bg-img/inspiration-header.jpg"  class="box-image">
+
+        
+         <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
+            <div class="container py-5">
+                <div class="row g-5">
+                    <div class="col-lg-3 col-md-6">
+                        <h4 class="section-title ff-secondary text-start text-success fw-normal mb-4">Company</h4>
+                        <a class="btn btn-link" href="">About Us</a>
+                        <a class="btn btn-link" href="">Contact Us</a>
+                        <a class="btn btn-link" href="">Receipes</a>
+                        <a class="btn btn-link" href="">Privacy Policy</a>
+                        <a class="btn btn-link" href="">Terms & Condition</a>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <h4 class="section-title ff-secondary text-start text-success fw-normal mb-4">Contact</h4>
+                        <p class="mb-2"><i class="fas fa-map-marker-alt me-3"></i>10/6,Galle Road,Colombo</p>
+                        <p class="mb-2"><i class="fas fa-phone-alt me-3"></i>011 456 9860</p>
+                        <p class="mb-2"><i class="fas fa-envelope me-3"></i>info@receipe.com</p>
+                        <div class="d-flex pt-2">
+                            <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-youtube"></i></a>
+                            <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <h4 class="section-title ff-secondary text-start text-success fw-normal mb-4">Opening For Demo</h4>
+                        <h5 class="text-light fw-normal">Monday - Saturday</h5>
+                        <p>09AM - 09PM</p>
+                        <h5 class="text-light fw-normal">Sunday</h5>
+                        <p>10AM - 08PM</p>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <h4 class="section-title ff-secondary text-start text-success fw-normal mb-4">Newsletter</h4>
+                        <p>Sign Up Here  To Get In Touch.</p>
+                        <div class="position-relative mx-auto" style="max-width: 400px;">
+                            <input class="form-control border-primary w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email">
+                            <button type="button" class="btn btn-success py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="copyright">
+                    <div class="row">
+                        <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                            &copy; <a class="border-bottom" href="#">Recipe Master</a>, All Right Reserved. 
+							
+							
+							Designed By <a class="border-bottom" href="">Shanuga</a>
+                        </div>
+                        <div class="col-md-6 text-center text-md-end">
+                            <div class="footer-menu">
+                                <a href="">Home</a>
+                                <a href="">Cookies</a>
+                                <a href="">Help</a>
+                                <a href="">FQAs</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer End -->
+
+            <!-- ##### All Javascript Files ##### -->
+    <!-- jQuery-2.2.4 js -->
+    <script src="js/jquery/jquery-2.2.4.min.js"></script>
+    <!-- Popper js -->
+    <script src="js/bootstrap/popper.min.js"></script>
+    <!-- Bootstrap js -->
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <!-- All Plugins js -->
+    <script src="js/plugins/plugins.js"></script>
+    <!-- Active js -->
+    <script src="js/active.js"></script>
+</body>
+
+</html>
