@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Dashboard">
+    <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+
+    <title>SOCIALMEDIA DASHBOARD</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <!--external css-->
+    <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+        
+   
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/style-responsive.css" rel="stylesheet">
+    
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    
+
+    
+  </head>
+
+  <body>
+
+  <section id="container" >
+      <!-- **********************************************************************************************************************************************************
+      TOP BAR CONTENT & NOTIFICATIONS
+      *********************************************************************************************************************************************************** -->
+      <!--header start-->
+      <header class="header black-bg">
+        <div class="sidebar-toggle-box">
+            <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
+        </div>
+      <!--logo start-->
+      <a href="index.html" class="logo"><b>SOCIALMEDIA </b></a>
+      <!--logo end-->
+      <div class="nav notify-row" id="top_menu">
+          <!--  notification start -->
+          <ul class="nav top-menu">
+              <!-- settings start -->
+              <li class="dropdown">
+                  <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
+                      <i class="fa fa-bell"></i>
+                      <span class="badge">4</span>
+                  </a>
+                  <ul class="dropdown-menu extended tasks-bar">
+                      <div class="notify-arrow notify-arrow-green"></div>
+                      <li>
+                          <p class="green">You have 4 notifications</p>
+                      </li>
+                      <li>
+                          <a href="index.html#">
+                              <div class="task-info">
+                                  <div class="desc"><i class="fa fa-facebook  fa-spin fa-3x" style="font-size:20px;color:blue;"></i><br>Tagged in a Photo</div>
+                                  
+                              </div>
+                              
+                          </a>
+                      </li>
+                      <li>
+                          <a href="index.html#">
+                              <div class="task-info">
+                                  <div class="desc"><i class='fa fa-instagram fa-spin fa-3x' style="font-size:20px;color:rgb(104, 35, 89);"></i><br>Direct Message</div>
+                                  
+                              </div>
+                              
+                          </a>
+                      </li>
+                      <li>
+                          <a href="index.html#">
+                              <div class="task-info">
+                                  <div class="desc"><i class='fa fa-linkedin fa-spin fa-3x' style="font-size:20px;color:rgba(0, 0, 255, 0.637);"></i><br>Endorsement</div>
+                                  
+                              </div>
+                              
+                          </a>
+                      </li>
+                      <li>
+                          <a href="index.html#">
+                              <div class="task-info">
+                                  <div class="desc"><i class='fa fa-twitter' style="font-size:20px;color:rgb(19, 205, 234);"></i><br>New Follower</div>
+                              </div>
+                              
+                             
+                          </a>
+                      </li>
+                      <li class="external">
+                          <a href="#">See All</a>
+                      </li>
+                  </ul>
+              </li>
+              <!-- settings end -->
+              <!-- inbox dropdown start-->
+              <li id="header_inbox_bar" class="dropdown">
+                  <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
+                      <i class="fa fa-envelope-o"></i>
+                      <span class="badge">5</span>
+                  </a>
+                  <ul class="dropdown-menu extended inbox">
+                      <div class="notify-arrow notify-arrow-green"></div>
+                      <li>
+                          <p class="green">You have 5 new messages</p>
+                      </li>
+                      <li>
+                          <a href="index.html#">
+                              <span class="photo"><img alt="avatar" src="assets/img/ui-zac.jpg"></span>
+                              <span class="subject">
+                              <span class="from">Zac Snider</span>
+                              <span class="time">Just now</span>
+                              </span>
+                              <span class="message">
+                                  Hi mate, how is everything?
+                              </span>
+                          </a>
+                      </li>
+                      <li>
+                          <a href="index.html#">
+                              <span class="photo"><img alt="avatar" src="assets/img/ui-divya.jpg"></span>
+                              <span class="subject">
+                              <span class="from">Divya Manian</span>
+                              <span class="time">40 mins.</span>
+                              </span>
+                              <span class="message">
+                               Hi, I need your help with this.
+                              </span>
+                          </a>
+                      </li>
+                      <li>
+                          <a href="index.html#">
+                              <span class="photo"><img alt="avatar" src="assets/img/ui-danro.jpg"></span>
+                              <span class="subject">
+                              <span class="from">Dan Rogers</span>
+                              <span class="time">2 hrs.</span>
+                              </span>
+                              <span class="message">
+                                  Love your new Dashboard.
+                              </span>
+                          </a>
+                      </li>
+                      <li>
+                          <a href="index.html#">
+                              <span class="photo"><img alt="avatar" src="assets/img/ui-sherman.jpg"></span>
+                              <span class="subject">
+                              <span class="from">Dj Sherman</span>
+                              <span class="time">4 hrs.</span>
+                              </span>
+                              <span class="message">
+                                  Please, answer asap.
+                              </span>
+                          </a>
+                      </li>
+                      <li>
+                          <a href="index.html#">See all messages</a>
+                      </li>
+                  </ul>
+              </li>
+              <!-- inbox dropdown end -->
+          </ul>
+          <!--  notification end -->
+      </div>
+      <div class="top-menu">
+          <ul class="nav pull-right top-menu">
+              <li><a class="logout" href="login.html">Logout</a></li>
+          </ul>
+      </div>
+  </header>
+<!--header end-->
+      <!-- **********************************************************************************************************************************************************
+      MAIN SIDEBAR MENU
+      *********************************************************************************************************************************************************** -->
+      <!--sidebar start-->
+      <aside>
+          <div id="sidebar"  class="nav-collapse ">
+              <!-- sidebar menu start-->
+              <ul class="sidebar-menu" id="nav-accordion">
+              
+              	  <p class="centered"><a href="profile.html"><img src="assets/img/socialmedia.png" class="img-circle" width="60"></a></p>
+              	  <h5 class="centered">Profile</h5>
+              	  	
+                  <li class="mt">
+                      <a href="index.html">
+                          <i class="fa fa-dashboard"></i>
+                          <span>Dashboard</span>
+                      </a>
+                  </li>
+
+                  <li class="sub-menu">
+                      <a href="javascript:;" >
+                          <i class="fa fa-desktop"></i>
+                          <span> Elements</span>
+                      </a>
+                      <ul class="sub">
+                          
+                          
+                        <li><a  href="instagrampanels.html">Instagram Panels</a></li>
+                          <li><a  href="Fbpanels.html">FaceBook Panels</a></li>
+                          <li><a  href="linkedinpanel.html">Linkedin Panels</a></li>
+                          <li><a  href="twitterpanel.html">Twitter Panels</a></li>
+                      </ul>
+                  </li>
+
+                  <li class="sub-menu">
+                      <a href="javascript:;" >
+                          <i class="fa fa-cogs"></i>
+                          <span>Components</span>
+                      </a>
+                      <ul class="sub">
+                          <li><a  href="calendar.html">Socialmedia Calendar</a></li>
+                          <li><a  href="gallery.html">Gallery</a></li>
+                         
+                      </ul>
+                  </li>
+                  <li class="sub-menu">
+                      <a href="javascript:;" >
+                          <i class="fa fa-book"></i>
+                          <span>Extra Pages</span>
+                      </a>
+                      <ul class="sub">
+                        
+                          <li><a  href="login.html">Login</a></li>
+                          <li><a  href="lock_screen.html">Lock Screen</a></li>
+                      </ul>
+                  </li>
+                 
+                  <li class="sub-menu">
+                      <a class="active" href="javascript:;" >
+                          <i class=" fa fa-bar-chart-o"></i>
+                          <span>Analytics</span>
+                      </a>
+                      <ul class="sub">
+                          
+                        <li class="active"><a  href="chartjs.html">Report</a></li>
+                      </ul>
+                  </li>
+
+              </ul>
+              <!-- sidebar menu end-->
+          </div>
+      </aside>
+      <!--sidebar end-->
+      
+      <!-- **********************************************************************************************************************************************************
+      MAIN CONTENT
+      *********************************************************************************************************************************************************** -->
+      <!--main content start-->
+      <section id="main-content">
+          <section class="wrapper">
+          <h3><i class="fa fa-angle-right"></i> Analytics</h3>
+              <!-- page start-->
+              <div class="tab-pane" id="chartjs">
+                <div class="row mt">
+                    <div class="col-lg-6">
+                        <div class="content-panel">
+                            <h4><i class="fa fa-angle-right"></i> Likes</h4>
+                            <div class="panel-body text-center">
+                                <canvas id="doughnutChart" height="300" width="400"></canvas>
+                            </div>
+                        </div>
+    
+                        <script>
+                            // Assuming you have an array of data points
+                            var data = [300, 500, 200,700];
+                        
+                            // Get the canvas element
+                            var ctx = document.getElementById('doughnutChart').getContext('2d');
+                        
+                            // Initialize the doughnut chart
+                            var doughnutChart = new Chart(ctx, {
+                                type: 'doughnut',
+                                data: {
+                                    labels: ['Instagram', 'FaceBook', 'Linkedin','Twitter'], // Labels for each data point
+                                    datasets: [{
+                                        data: data, // Values for each section of the doughnut chart
+                                        backgroundColor: ['rgba(255, 99, 132, 0.8)', 'rgba(54, 162, 235, 0.8)', 'rgba(0,0,255)','rgb(0, 255, 255)']
+                                    }]
+                                },
+                                options: {
+                                    responsive: true,
+                                    maintainAspectRatio: false // Add this line to allow chart resizing
+                                }
+                            });
+                        </script>
+                        
+
+                    </div>
+                    
+                    <div class="col-lg-6">
+                        <div class="content-panel">
+                            <h4><i class="fa fa-angle-right"></i>Impressions</h4>
+                            <div class="panel-body text-center">
+                                <canvas id="lineChart" height="300" width="400"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <script>
+                        var ctx = document.getElementById('lineChart').getContext('2d');
+                        var lineChart = new Chart(ctx, {
+                            type: 'line',
+                            data: {
+                                labels: ['FaceBook', 'Instagram', 'Linkedin', 'Twitter'],
+                                datasets: [{
+                                    label: 'Impressions',
+                                    data: [10, 20, 15, 25, 18],
+                                    borderColor: 'rgba(75, 192, 192, 1)',
+                                    borderWidth: 2,
+                                    fill: false
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                    maintainAspectRatio: false,
+                                scales: {
+                                    y: {
+                                        beginAtZero: true
+                                    }
+                                }
+                            }
+                        });
+                    </script>
+                    </div>
+                    
+                    
+                
+                    <div class="row mt">
+                        <div class="col-lg-6">
+                            <div class="content-panel">
+                                <h4><i class="fa fa-angle-right"></i> Comments</h4>
+                                <div class="panel-body text-center">
+                                    <!-- Adjust the height and width attributes for the initial size of the chart -->
+                                    <canvas id="myChart" height="200" width="400"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    
+                
+                    
+                    <script>
+                        var xValues = ["FaceBook", "Instagram", "Linkedin", "Twitter"];
+                        var yValues = [55, 49, 44, 24, 15];
+                        var barColors = ["skyblue", "purple","darkblue","blue"];
+                        
+                        new Chart("myChart", {
+                          type: "bar",
+                          data: {
+                            labels: xValues,
+                            datasets: [{
+                              backgroundColor: barColors,
+                              data: yValues
+                            }]
+                          },
+                          options: {
+                            legend: {display: false},
+                            title: {
+                              display: true,
+                             
+                            }
+                          }
+                        });
+                        </script>
+                      <div class="col-lg-6">
+                          <div class="content-panel">
+							  <h4><i class="fa fa-angle-right"></i> Shares</h4>
+                              <div class="panel-body text-center">
+                                  <canvas id="pie" height="200" width="400"></canvas>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <script>
+                var xValues = [ "FaceBook", "Linkedin", "Instagram", "Twitter"];
+                var yValues = [55, 49, 44, 24];
+                var barColors = [
+                  
+                  "#3F00FF",
+                  "#2b5797",
+                  "#CE33FF",
+                  "#7DF9FF"
+                ];
+                
+                new Chart("pie", {
+                  type: "pie",
+                  data: {
+                    labels: xValues,
+                    datasets: [{
+                      backgroundColor: barColors,
+                      data: yValues
+                    }]
+                  },
+                  options: {
+                    title: {
+                      display: true,
+                      
+                    }
+                  }
+                });
+                </script>
+              <!-- page end-->
+          </section>          
+      </section><!-- /MAIN CONTENT -->
+
+      
+
+      <!--main content end-->
+      <!--footer start-->
+      <footer class="site-footer">
+          <div class="text-center">
+              2023-Dashboard
+              <a href="chartjs.html#" class="go-top">
+                  <i class="fa fa-angle-up"></i>
+              </a>
+          </div>
+      </footer>
+      <!--footer end-->
+  </section>
+
+    
+    <script src="assets/js/jquery.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script class="include" type="text/javascript" src="assets/js/jquery.dcjqaccordion.2.7.js"></script>
+    <script src="assets/js/jquery.scrollTo.min.js"></script>
+    <script src="assets/js/jquery.nicescroll.js" type="text/javascript"></script>
+
+
+    <!--common script for all pages-->
+    <script src="assets/js/common-scripts.js"></script>
+
+    <!--script for this page-->
+    <script src="assets/js/chart-master/Chart.js"></script>
+    <script src="assets/js/chartjs-conf.js"></script>
+    
+ 
+
+  </body>
+</html>
