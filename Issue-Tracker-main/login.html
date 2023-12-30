@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" theme="">
+
+<head>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+        integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+    <link rel="shortcut icon" href="favicon.ico" />
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="responsive.css">
+</head>
+
+<body>
+
+    <!-- Main Html page -->
+    <div class="login">
+
+        <!-- Header -->
+        <header id="lo">
+            <div class="login-form" id="loginForm">
+                <input type="text" id="loginUsername" placeholder="Username">
+                <input type="password" id="loginPassword" placeholder="Password">
+                <button onclick="login()">Login</button>
+                <div class="register-link">
+                    <a href="#" onclick="toggleForms()">New User? Register</a>
+                </div>
+            </div>
+
+            <div class="register-form" id="registerForm" style="display: none;">
+                <input type="text" id="registerUsername" placeholder=" Username">
+                <input type="password" id="registerPassword" placeholder=" Password">
+                <input type="password" id="registerPassword" placeholder="Confirm Password">
+                <button onclick="register()">Register</button>
+            </div>
+
+            <div>
+               
+            </div>
+        </header>
+
+        <!-- ... (rest of your existing content) ... -->
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        function toggleForms() {
+            const loginForm = document.getElementById("loginForm");
+            const registerForm = document.getElementById("registerForm");
+
+            if (loginForm.style.display === "none") {
+                loginForm.style.display = "block";
+                registerForm.style.display = "none";
+            } else {
+                loginForm.style.display = "none";
+                registerForm.style.display = "block";
+            }
+        }
+
+        function login() {
+            const username = document.getElementById("loginUsername").value;
+
+            if (username.trim() !== "") {
+                alert("Login successful!");
+                // Redirect to the issue tracking main page
+                window.location.href = 'index.html';
+            } else {
+                alert("Invalid username");
+            }
+        }
+
+        function register() {
+            const newUsername = document.getElementById("registerUsername").value;
+            const newPassword = document.getElementById("registerPassword").value;
+
+            if (newUsername.trim() !== "" && newPassword.trim() !== "") {
+                alert(`Registered new user: ${newUsername}`);
+            } else {
+                alert('Registration failed. Please provide both username and password.');
+            }
+        }
+    </script>
+</body>
+
+</html>
